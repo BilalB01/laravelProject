@@ -77,4 +77,18 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index')
             ->with('success', "User {$user->name} has been {$status}.");
     }
+
+    public function destroy(User $user)
+    {
+        // Prevent admin from deleting themselves
+        if ($user->id === auth()->id()) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'You cannot delete your own account.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', "User {$user->name} has been deleted.");
+    }
 }

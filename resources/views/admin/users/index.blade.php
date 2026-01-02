@@ -82,18 +82,28 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             @if ($user->id !== auth()->id())
-                                                <form method="POST" action="{{ route('admin.users.toggle-admin', $user) }}" class="inline">
-                                                    @csrf
-                                                    @if ($user->is_admin)
+                                                <div class="flex items-center space-x-4">
+                                                    <form method="POST" action="{{ route('admin.users.toggle-admin', $user) }}">
+                                                        @csrf
+                                                        @if ($user->is_admin)
+                                                            <button type="submit" class="text-orange-600 hover:text-orange-900">
+                                                                Demote to User
+                                                            </button>
+                                                        @else
+                                                            <button type="submit" class="text-primary hover:text-primary-700">
+                                                                Promote to Admin
+                                                            </button>
+                                                        @endif
+                                                    </form>
+
+                                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                                        @csrf
+                                                        @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900">
-                                                            Demote to User
+                                                            Delete
                                                         </button>
-                                                    @else
-                                                        <button type="submit" class="text-primary hover:text-primary-700">
-                                                            Promote to Admin
-                                                        </button>
-                                                    @endif
-                                                </form>
+                                                    </form>
+                                                </div>
                                             @else
                                                 <span class="text-gray-400">You</span>
                                             @endif
