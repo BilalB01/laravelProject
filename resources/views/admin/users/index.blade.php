@@ -61,9 +61,13 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-500">
-                                                {{ $user->profile->username ?? 'N/A' }}
-                                            </div>
+                                            @if($user->profile && $user->profile->username)
+                                                <a href="{{ route('profile.show', $user->profile->username) }}" class="text-sm text-primary hover:text-primary-700 font-medium">
+                                                    {{ $user->profile->username }}
+                                                </a>
+                                            @else
+                                                <span class="text-sm text-gray-500">N/A</span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if ($user->is_admin)

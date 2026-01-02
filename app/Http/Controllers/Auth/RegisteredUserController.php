@@ -31,7 +31,9 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:profiles,username'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'birthday' => ['required', 'date', 'before:today'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,9 +43,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Create empty profile for the new user
+        // Create profile for the new user with provided details
         $user->profile()->create([
-            'username' => $request->name,
+            'username' => $request->username,
+            'birthday' => $request->birthday,
             'about_me' => '',
         ]);
 
