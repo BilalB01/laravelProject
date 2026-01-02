@@ -11,21 +11,12 @@ class News extends Model
 
     protected $fillable = [
         'title',
-        'image',
         'content',
+        'image_path',
         'published_at',
-        'created_by',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
     ];
-
-    /**
-     * Get the user who created the news item.
-     */
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
 }

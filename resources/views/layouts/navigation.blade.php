@@ -16,9 +16,17 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     
+                    <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                        {{ __('Nieuws') }}
+                    </x-nav-link>
+                    
                     @if(auth()->user()->isAdmin())
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                             {{ __('User Management') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
+                            {{ __('Manage News') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -77,9 +85,17 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             
+            <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                {{ __('Nieuws') }}
+            </x-responsive-nav-link>
+            
             @if(auth()->user()->isAdmin())
                 <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                     {{ __('User Management') }}
+                </x-responsive-nav-link>
+                
+                <x-responsive-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
+                    {{ __('Manage News') }}
                 </x-responsive-nav-link>
             @endif
         </div>
