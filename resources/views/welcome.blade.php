@@ -46,6 +46,23 @@
                     Ontdek heerlijke recepten, deel je eigen creaties en word onderdeel van onze kook community.
                 </p>
                 
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <form method="GET" action="{{ route('search') }}" class="flex gap-2">
+                        <input 
+                            type="text" 
+                            name="q" 
+                            placeholder="Zoek een persoon of nieuws..."
+                            class="flex-1 border-gray-300 focus:border-primary focus:ring-primary rounded-lg shadow-sm text-lg px-6 py-3"
+                        >
+                        <button type="submit" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition shadow-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                
                 <div class="flex justify-center gap-4">
                     @guest
                         <a href="{{ route('register') }}" class="bg-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition shadow-lg">
