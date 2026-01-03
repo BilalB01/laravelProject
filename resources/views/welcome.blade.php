@@ -21,6 +21,9 @@
                 </div>
                 
                 <div class="flex items-center space-x-4">
+                    <a href="{{ route('news.index') }}" class="text-gray-700 hover:text-primary transition">Nieuws</a>
+                    <a href="{{ route('faq.index') }}" class="text-gray-700 hover:text-primary transition">FAQ</a>
+                    
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-primary transition">Dashboard</a>
                     @else
