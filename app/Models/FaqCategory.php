@@ -14,9 +14,6 @@ class FaqCategory extends Model
         'order',
     ];
 
-    /**
-     * Get the FAQs in this category.
-     */
     public function faqs()
     {
         return $this->hasMany(Faq::class, 'category_id')->orderBy('order');

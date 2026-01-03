@@ -20,6 +20,10 @@
                         {{ __('Nieuws') }}
                     </x-nav-link>
                     
+                    <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                        {{ __('FAQ') }}
+                    </x-nav-link>
+                    
                     @if(auth()->user()->isAdmin())
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                             {{ __('User Management') }}
@@ -27,6 +31,10 @@
                         
                         <x-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
                             {{ __('Manage News') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('admin.faq-categories.index')" :active="request()->routeIs('admin.faq-categories.*') || request()->routeIs('admin.faqs.*')">
+                            {{ __('Manage FAQ') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -89,6 +97,10 @@
                 {{ __('Nieuws') }}
             </x-responsive-nav-link>
             
+            <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                {{ __('FAQ') }}
+            </x-responsive-nav-link>
+            
             @if(auth()->user()->isAdmin())
                 <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                     {{ __('User Management') }}
@@ -96,6 +108,10 @@
                 
                 <x-responsive-nav-link :href="route('admin.news.index')" :active="request()->routeIs('admin.news.*')">
                     {{ __('Manage News') }}
+                </x-responsive-nav-link>
+                
+                <x-responsive-nav-link :href="route('admin.faq-categories.index')" :active="request()->routeIs('admin.faq-categories.*') || request()->routeIs('admin.faqs.*')">
+                    {{ __('Manage FAQ') }}
                 </x-responsive-nav-link>
             @endif
         </div>
