@@ -83,8 +83,9 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             @if ($user->id !== auth()->id())
                                                 <div class="flex items-center space-x-4">
-                                                    <form method="POST" action="{{ route('admin.users.toggle-admin', $user) }}">
+                                                    <form method="POST" action="{{ route('admin.users.toggleAdmin', $user) }}">
                                                         @csrf
+                                                        @method('PATCH')
                                                         @if ($user->is_admin)
                                                             <button type="submit" class="text-orange-600 hover:text-orange-900">
                                                                 Demote to User
