@@ -24,9 +24,11 @@
                         {{ __('FAQ') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
-                        {{ __('Contact') }}
-                    </x-nav-link>
+                    @if(!auth()->check() || !auth()->user()->isAdmin())
+                        <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                            {{ __('Contact') }}
+                        </x-nav-link>
+                    @endif
                     
                     @auth
                         @if(auth()->user()->isAdmin())
@@ -131,9 +133,11 @@
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
             
-            <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
-                {{ __('Contact') }}
-            </x-responsive-nav-link>
+            @if(!auth()->check() || !auth()->user()->isAdmin())
+                <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                    {{ __('Contact') }}
+                </x-responsive-nav-link>
+            @endif
             
             @auth
                 @if(auth()->user()->isAdmin())
