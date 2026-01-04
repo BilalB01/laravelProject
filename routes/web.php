@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
@@ -27,6 +28,13 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 // Contact routes
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Community posts routes
+Route::get('/community', [PostController::class, 'index'])->name('posts.index');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/community', [PostController::class, 'store'])->name('posts.store');
+    Route::delete('/community/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+});
 
 // Public news routes
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

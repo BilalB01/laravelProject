@@ -26,8 +26,11 @@ class DatabaseSeeder extends Seeder
 
         // Create profile for admin
         $admin->profile()->create([
-            'username' => 'Administrator',
+            'username' => 'admin',
             'about_me' => 'Default admin account for the recepten website.',
         ]);
+
+        // Seed FAQ data
+        $this->call(FaqSeeder::class);
     }
 }

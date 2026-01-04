@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 
 class AdminFaqCategoryController extends Controller
 {
+    /**
+     * Toon alle FAQ categorieën en FAQs
+     */
     public function index()
     {
-        $categories = FaqCategory::orderBy('order')->get();
-        return view('admin.faq-categories.index', compact('categories'));
+        // Haal alle categorieën op met hun FAQs
+        $categories = FaqCategory::with('faqs')->orderBy('order')->get();
+        
+        // Haal ook alle FAQs op voor het overzicht
+        $faqs = Faq::with('category')->orderBy('category_id')->orderBy('order')->get();
+        
+        return view('admin.faq-categories.index', compact('categories', 'faqs'));
     }
 
     public function create()
