@@ -63,32 +63,47 @@ class AdminUserController extends Controller
      */
     public function toggleAdmin(User $user)
     {
-        // Prevent admin from demoting themselves
+        // Prevent toggling admin status of the default admin (ID 1)
+        if ($user->id === 1) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'De default admin kan niet worden gedemote.');
+        }
+
+        // Prevent users from toggling their own admin status
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
-                ->with('error', 'You cannot change your own admin status.');
+                ->with('error', 'Je kunt je eigen admin status niet wijzigen.');
         }
 
         $user->is_admin = !$user->is_admin;
         $user->save();
 
-        $status = $user->is_admin ? 'promoted to admin' : 'demoted to user';
-
+        $status = $user->is_admin ? 'admin' : 'gebruiker';
+        
         return redirect()->route('admin.users.index')
-            ->with('success', "User {$user->name} has been {$status}.");
+            ->with('success', "Gebruiker succesvol gewijzigd naar {$status}.");
     }
 
+    /**
+     * Delete a user
+     */
     public function destroy(User $user)
     {
-        // Prevent admin from deleting themselves
+        // Prevent deletion of the default admin (ID 1)
+        if ($user->id === 1) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'De default admin kan niet worden verwijderd.');
+        }
+
+        // Prevent users from deleting themselves
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
-                ->with('error', 'You cannot delete your own account.');
+                ->with('error', 'Je kunt jezelf niet verwijderen.');
         }
 
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', "User {$user->name} has been deleted.");
+            ->with('success', 'Gebruiker succesvol verwijderd.');
     }
 }

@@ -81,7 +81,7 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            @if ($user->id !== auth()->id())
+                                            @if ($user->id !== auth()->id() && $user->id !== 1)
                                                 <div class="flex items-center space-x-4">
                                                     <form method="POST" action="{{ route('admin.users.toggleAdmin', $user) }}">
                                                         @csrf
@@ -97,7 +97,7 @@
                                                         @endif
                                                     </form>
 
-                                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900">
@@ -105,8 +105,10 @@
                                                         </button>
                                                     </form>
                                                 </div>
+                                            @elseif ($user->id === 1)
+                                                <span class="text-gray-400 text-sm">Default Admin (Beschermd)</span>
                                             @else
-                                                <span class="text-gray-400">You</span>
+                                                <span class="text-gray-400 text-sm">Jij (Kan niet wijzigen)</span>
                                             @endif
                                         </td>
                                     </tr>
