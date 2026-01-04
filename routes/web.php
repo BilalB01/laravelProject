@@ -5,10 +5,12 @@ use App\Http\Controllers\ProfilePageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqController;
+use App\Http\Controllers\Admin\AdminContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +23,10 @@ Route::get('/dashboard', function () {
 
 // Search route
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+// Contact routes
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Public news routes
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
@@ -42,12 +48,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/my-profile', [ProfilePageController::class, 'update'])->name('profile.page.update');
 });
 
-// Admin routes
+// Admin routes (protected by auth and admin middleware)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // User management
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
     Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
-    Route::post('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
+    Route::patch('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggleAdmin');
     Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     
     // News management
@@ -56,6 +63,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // FAQ management
     Route::resource('faq-categories', AdminFaqCategoryController::class);
     Route::resource('faqs', AdminFaqController::class);
+    
+    // Contact messages management
+    Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/{contactMessage}', [AdminContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact/{contactMessage}/reply', [AdminContactController::class, 'reply'])->name('contact.reply');
+    Route::delete('/contact/{contactMessage}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -24,6 +24,10 @@
                         {{ __('FAQ') }}
                     </x-nav-link>
                     
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
+                    
                     @auth
                         @if(auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
@@ -36,6 +40,10 @@
                             
                             <x-nav-link :href="route('admin.faq-categories.index')" :active="request()->routeIs('admin.faq-categories.*') || request()->routeIs('admin.faqs.*')">
                                 {{ __('Manage FAQ') }}
+                            </x-nav-link>
+                            
+                            <x-nav-link :href="route('admin.contact.index')" :active="request()->routeIs('admin.contact.*')">
+                                {{ __('Manage Contact') }}
                             </x-nav-link>
                         @endif
                     @endauth
@@ -123,6 +131,10 @@
                 {{ __('FAQ') }}
             </x-responsive-nav-link>
             
+            <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                {{ __('Contact') }}
+            </x-responsive-nav-link>
+            
             @auth
                 @if(auth()->user()->isAdmin())
                     <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
@@ -135,6 +147,10 @@
                     
                     <x-responsive-nav-link :href="route('admin.faq-categories.index')" :active="request()->routeIs('admin.faq-categories.*') || request()->routeIs('admin.faqs.*')">
                         {{ __('Manage FAQ') }}
+                    </x-responsive-nav-link>
+                    
+                    <x-responsive-nav-link :href="route('admin.contact.index')" :active="request()->routeIs('admin.contact.*')">
+                        {{ __('Manage Contact') }}
                     </x-responsive-nav-link>
                 @endif
             @endauth
