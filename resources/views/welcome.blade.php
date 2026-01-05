@@ -22,6 +22,7 @@
                 
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('news.index') }}" class="text-gray-700 hover:text-primary transition">Nieuws</a>
+                    <a href="{{ route('posts.index') }}" class="text-gray-700 hover:text-primary transition">Community</a>
                     <a href="{{ route('faq.index') }}" class="text-gray-700 hover:text-primary transition">FAQ</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-primary transition">Contact</a>
                     
@@ -84,16 +85,8 @@
 
     <!-- Features Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 gap-8">
             <!-- Feature 1 -->
-            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Recepten Ontdekken</h3>
-                <p class="text-gray-600">
-                    Blader door onze collectie van heerlijke recepten voor elke gelegenheid.
-                </p>
-            </div>
-
-            <!-- Feature 2 -->
             <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Community</h3>
                 <p class="text-gray-600">
@@ -101,7 +94,7 @@
                 </p>
             </div>
 
-            <!-- Feature 3 -->
+            <!-- Feature 2 -->
             <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Nieuws & Tips</h3>
                 <p class="text-gray-600">
@@ -115,7 +108,7 @@
     <footer class="bg-gray-50 border-t border-gray-200 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="text-center text-gray-600">
-                <p>&copy; {{ date('Y') }} Recepten Website. Alle rechten voorbehouden.</p>
+                <p>© 2026 Recepten Website. Alle rechten voorbehouden.</p>
             </div>
         </div>
     </footer>

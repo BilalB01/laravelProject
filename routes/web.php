@@ -7,6 +7,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
@@ -39,6 +40,12 @@ Route::middleware(['auth'])->group(function () {
 // Public news routes
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
+
+// News comments routes (auth required)
+Route::middleware(['auth'])->group(function () {
+    Route::post('/news/{news}/comments', [NewsCommentController::class, 'store'])->name('news.comments.store');
+    Route::delete('/news/comments/{comment}', [NewsCommentController::class, 'destroy'])->name('news.comments.destroy');
+});
 
 // Public FAQ route
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');

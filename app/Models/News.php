@@ -19,4 +19,12 @@ class News extends Model
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    /**
+     * Get all comments for the news item.
+     */
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\NewsComment::class);
+    }
 }

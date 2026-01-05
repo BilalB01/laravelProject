@@ -13,8 +13,14 @@ class NewsController extends Controller
         return view('news.index', compact('news'));
     }
 
+    /**
+     * Toon een enkel nieuwsitem
+     */
     public function show(News $news)
     {
+        // Laad comments met user en profile relaties
+        $news->load(['comments.user.profile']);
+        
         return view('news.show', compact('news'));
     }
 }

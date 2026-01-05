@@ -79,4 +79,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Post::class);
     }
+
+    /**
+     * Get all news comments for the user.
+     */
+    public function newsComments()
+    {
+        return $this->hasMany(\App\Models\NewsComment::class);
+    }
 }
