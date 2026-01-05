@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
             'news' => News::count(),
             'posts' => Post::count(),
             'faqs' => \App\Models\Faq::count(),
-            'contacts' => \App\Models\Contact::count(),
+            'contacts' => \App\Models\ContactMessage::count(),
         ];
     }
     
