@@ -26,12 +26,8 @@
                     <a href="{{ route('faq.index') }}" class="text-gray-700 hover:text-primary transition">FAQ</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-primary transition">Contact</a>
                     
-                    @auth
-                        <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-primary transition">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-primary transition">Log in</a>
-                        <a href="{{ route('register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition">Register</a>
-                    @endauth
+                    <a href="{{ route('login') }}" class="text-gray-700 hover:text-primary transition">Log in</a>
+                    <a href="{{ route('register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition">Register</a>
                 </div>
             </div>
         </div>
@@ -72,10 +68,6 @@
                         </a>
                         <a href="{{ route('login') }}" class="bg-white text-primary px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-50 transition border-2 border-primary">
                             Inloggen
-                        </a>
-                    @else
-                        <a href="{{ route('dashboard') }}" class="bg-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition shadow-lg">
-                            Naar Dashboard
                         </a>
                     @endguest
                 </div>

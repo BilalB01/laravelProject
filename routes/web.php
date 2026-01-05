@@ -8,19 +8,39 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\NewsCommentController;
+use App\Http\Controllers\ProfileMessageController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqController;
 use App\Http\Controllers\Admin\AdminContactController;
 use Illuminate\Support\Facades\Route;
+use App\Models\News;
+use App\Models\Post;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Haal de laatste 5 nieuwsartikelen en 5 posts op
+    $news = News::orderBy('published_at', 'desc')->take(5)->get();
+    $posts = Post::with(['user.profile'])->latest()->take(5)->get();
+    
+    // Admin statistieken
+    $stats = null;
+    if (auth()->user()->isAdmin()) {
+        $stats = [
+            'users' => \App\Models\User::count(),
+            'admins' => \App\Models\User::where('is_admin', true)->count(),
+            'news' => News::count(),
+            'posts' => Post::count(),
+            'faqs' => \App\Models\Faq::count(),
+            'contacts' => \App\Models\Contact::count(),
+        ];
+    }
+    
+    return view('dashboard', compact('news', 'posts', 'stats'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Search route
@@ -61,6 +81,10 @@ Route::middleware('auth')->group(function () {
     // Private profile edit
     Route::get('/my-profile/edit', [ProfilePageController::class, 'edit'])->name('profile.page.edit');
     Route::patch('/my-profile', [ProfilePageController::class, 'update'])->name('profile.page.update');
+    
+    // Profile messages
+    Route::post('/profile/{username}/messages', [ProfileMessageController::class, 'store'])->name('profile.messages.store');
+    Route::delete('/profile/messages/{message}', [ProfileMessageController::class, 'destroy'])->name('profile.messages.destroy');
 });
 
 // Admin routes (protected by auth and admin middleware)

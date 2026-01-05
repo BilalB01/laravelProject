@@ -16,8 +16,14 @@ class ProfilePageController extends Controller
     {
         $profile = Profile::where('username', $username)->firstOrFail();
         $user = $profile->user;
+        
+        // Haal berichten op voor dit profiel
+        $messages = \App\Models\ProfileMessage::where('receiver_id', $user->id)
+            ->with(['sender.profile'])
+            ->latest()
+            ->get();
 
-        return view('profiles.show', compact('profile', 'user'));
+        return view('profiles.show', compact('profile', 'user', 'messages'));
     }
 
     /**
