@@ -1,59 +1,170 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Receptenweb (Laravel 12)
+Dit project is gemaakt voor het vak Backend Web (EhB). Het is een data-driven receptenwebsite met authenticatie, profielen, community posts, nieuws met nested comments, FAQ en een contactformulier, plus een admin paneel.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Functionaliteiten
 
-## About Laravel
+### Login Systeem
+- Registreren / Inloggen / Uitloggen
+- Remember Me
+- Wachtwoord Vergeten
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Gebruikers en Admin
+- Een gebruiker is een normale gebruiker of een admin
+- Alleen admins kunnen andere gebruikers promoveren of degraderen
+- Alleen admins kunnen handmatig een gebruiker aanmaken (en kiezen of die admin wordt)
+- Standaard admin (ID 1) is beschermd en kan niet verwijderd worden
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Profielpagina
+- Elke gebruiker heeft een publieke profielpagina zichtbaar voor iedereen
+- Ingelogde gebruikers kunnen hun eigen profiel bewerken
+- Profiel velden: Username, Geboortedatum, Profielfoto (opgeslagen op server), Over Mij tekst
+- **Profiel Muur**: Gebruikers kunnen berichten achterlaten op elkaars profielen
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Community Posts
+- Gebruikers kunnen posts maken met tekst en optionele afbeelding
+- Zichtbaar voor iedereen
+- Admins kunnen posts verwijderen met reden (gebruiker krijgt email)
 
-## Learning Laravel
+### Nieuws
+- Bezoekers kunnen nieuwsitems bekijken (overzicht + detail)
+- Admins kunnen nieuws aanmaken, bewerken en verwijderen
+- **Nested Comments**: Facebook-stijl comment systeem met replies
+- Nieuws velden: Titel, Afbeelding, Inhoud, Publicatiedatum
+- Relaties: One-to-many: Gebruiker → Nieuwsitems
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### FAQ
+- Bezoekers kunnen de FAQ pagina bekijken per categorie
+- Admins kunnen categorieën en vragen/antwoorden aanmaken, bewerken en verwijderen
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Contact
+- Bezoekers kunnen het contactformulier invullen
+- Het bericht wordt opgeslagen in de database
+- Admin kan alle contactberichten bekijken in admin paneel
+- Admin kan berichten beantwoorden via email
 
-## Laravel Sponsors
+### Dashboard
+- Reguliere gebruikers: Feed met laatste nieuws en posts
+- Admins: Statistieken (gebruikers, nieuws, posts, FAQ's, contactberichten)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Standaard Admin Account
+- **Naam**: admin
+- **Email**: admin@ehb.be
+- **Wachtwoord**: Password!321
 
-### Premium Partners
+## Installatie
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Vereisten
+- PHP 8.2+
+- Composer
+- Node + NPM
+- Database (SQLite standaard)
 
-## Contributing
+### Installatie Stappen
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**1. Clone de repository**
+```bash
+git clone <repository-url>
+cd laravelProject
+```
 
-## Code of Conduct
+**2. Installeer PHP dependencies**
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**3. Maak .env en genereer app key**
 
-## Security Vulnerabilities
+Windows:
+```bash
+copy .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+macOS / Linux:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## License
+**4. Maak database aan (SQLite)**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Windows:
+```powershell
+New-Item database/database.sqlite
+```
+
+macOS / Linux:
+```bash
+touch database/database.sqlite
+```
+
+**5. Voer migraties en seeder uit**
+```bash
+php artisan migrate:fresh --seed
+```
+
+**6. Maak storage link (Profielfoto's, Nieuws Afbeeldingen, Post Afbeeldingen)**
+```bash
+php artisan storage:link
+```
+
+**7. Installeer frontend dependencies en build**
+```bash
+npm install
+npm run build
+```
+
+**8. Start de server**
+```bash
+php artisan serve
+```
+
+Open de website: `http://127.0.0.1:8000`
+
+Of met Laravel Herd: `http://laravelproject.test`
+
+## Mail Configuratie
+Voor development:
+```env
+MAIL_MAILER=log
+```
+Email inhoud wordt geschreven naar: `storage/logs/laravel.log`
+
+## Database Relaties
+- **One-to-One**: User ↔ Profile
+- **One-to-Many**: User → Posts, User → NewsComments, News → NewsComments, FaqCategory → Faqs
+- **Self-referencing**: NewsComment → NewsComment (nested replies)
+
+## Technische Stack
+- Laravel 12
+- Laravel Breeze (Authenticatie)
+- SQLite (standaard)
+- Blade Templates
+- Tailwind CSS 3
+- Vite 5
+- Alpine.js
+
+## Beveiliging
+- CSRF bescherming op alle formulieren
+- XSS preventie via Blade templating
+- SQL injection preventie met Eloquent ORM
+- Wachtwoord hashing met Bcrypt
+- Rate limiting op login (max 5 pogingen)
+- Admin middleware voor beschermde routes
+
+## Belangrijke Opmerkingen
+- Het project ondersteunt `php artisan migrate:fresh --seed`
+- `vendor` en `node_modules` staan in `.gitignore`
+- Afbeeldingen worden opgeslagen op public disk (`storage/app/public`)
+- Voer `php artisan storage:link` uit om uploads toegankelijk te maken
+
+## Bronvermeldingen
+- **Laravel 12**: https://laravel.com
+- **Laravel Breeze**: https://laravel.com/docs/12.x/starter-kits#breeze
+- **Tailwind CSS**: https://tailwindcss.com
+- **Vite**: https://vitejs.dev
+- **Alpine.js**: https://alpinejs.dev
+- **PHP Documentatie**: https://www.php.net/docs.php
+
+---
+**Backend Web - EhB** | Laravel 12 | Januari 2026
