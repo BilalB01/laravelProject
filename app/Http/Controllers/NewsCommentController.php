@@ -25,8 +25,10 @@ class NewsCommentController extends Controller
             'parent_id' => $validated['parent_id'] ?? null,
         ]);
 
+        $parentId = $validated['parent_id'] ?? null;
+        
         return redirect()->back()
-            ->with('success', $validated['parent_id'] ? 'Je antwoord is geplaatst!' : 'Je reactie is geplaatst!');
+            ->with('success', $parentId ? 'Je antwoord is geplaatst!' : 'Je reactie is geplaatst!');
     }
 
     /**
